@@ -1,0 +1,19 @@
+# Neo4j Community Edition for ez-repo (graph + vector index).
+# Start: docker compose up -d   |   Browser: http://localhost:7474
+services:
+  neo4j:
+    image: neo4j:5.26-community
+    container_name: ez-repo-neo4j
+    ports:
+      - "127.0.0.1:7474:7474"
+      - "127.0.0.1:7687:7687"
+    environment:
+      NEO4J_AUTH: neo4j/${NEO4J_PASSWORD:-change-me-please}
+      NEO4J_PLUGINS: '["apoc"]'
+      # Sized for a 16 GB laptop.
+      NEO4J_server_memory_heap_initial__size: 512m
+      NEO4J_server_memory_heap_max__size: 1G
+      NEO4J_server_memory_pagecache_size: 512m
+    volumes:
+      - ./data/neo4j:/data
+    restart: unless-stopped

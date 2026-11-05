@@ -1,0 +1,60 @@
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[project]
+name = "ez-repo"
+version = "0.1.0"
+description = "Local GraphRAG assistant to explore and question GitHub repositories."
+readme = "README.md"
+requires-python = ">=3.11"
+license = { text = "MIT" }
+dependencies = [
+    # Config
+    "pydantic-settings>=2.4",
+    "python-dotenv>=1.0",
+    # Code parsing
+    "tree-sitter>=0.23",
+    "tree-sitter-python>=0.23",
+    # LLM / RAG
+    "langchain>=0.3",
+    "langchain-neo4j>=0.4",
+    "langchain-ollama>=0.3",
+    "langchain-huggingface>=0.1",
+    "sentence-transformers>=3.0",
+    # Backend
+    "fastapi>=0.115",
+    "uvicorn[standard]>=0.30",
+    # Frontend
+    "streamlit>=1.38",
+    "httpx>=0.27",
+]
+
+[project.optional-dependencies]
+dev = [
+    "pytest>=8.0",
+    "ruff>=0.6",
+]
+
+[project.scripts]
+ez-repo-api = "ez_repo.api:run"
+
+[tool.hatch.build.targets.wheel]
+packages = ["src/ez_repo"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+pythonpath = ["src"]
+addopts = "-ra -m 'not integration'"
+markers = [
+    "integration: needs running services (Neo4j, Ollama) or network access",
+]
+
+[tool.ruff]
+line-length = 100
+target-version = "py311"
+src = ["src", "tests"]
+extend-exclude = ["tests/fixtures"]  # demo sources, one is intentionally broken
+
+[tool.ruff.lint]
+select = ["E", "F", "I", "B", "UP"]

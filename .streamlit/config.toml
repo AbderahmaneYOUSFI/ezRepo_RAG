@@ -1,0 +1,9 @@
+# Streamlit settings for ez-repo (read when `streamlit run` is started from the project root).
+[server]
+address = "localhost"   # local only
+
+[browser]
+gatherUsageStats = false  # no telemetry: ez-repo stays 100% local
+
+[client]
+toolbarMode = "minimal"

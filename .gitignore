@@ -1,0 +1,30 @@
+# Python
+__pycache__/
+*.py[cod]
+*.egg-info/
+build/
+dist/
+
+# Virtual env
+.venv/
+venv/
+
+# Env / secrets
+.env
+
+# Tooling caches
+.pytest_cache/
+.ruff_cache/
+.mypy_cache/
+.coverage
+htmlcov/
+
+# Project data (cloned repositories, Neo4j volumes, model caches)
+data/
+neo4j/
+
+# IDE / OS
+.vscode/
+.idea/
+Thumbs.db
+.DS_Store
